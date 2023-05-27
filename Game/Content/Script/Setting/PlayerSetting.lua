@@ -960,7 +960,7 @@ function PlayerSetting.IsValidType(nSID, nType)
 
 
         local IsOversea = Login.IsOversea()
-        if (IsOversea and tbCfg.Oversea == 1) or (not IsOversea and tbCfg.Oversea == 2) or tbCfg.Oversea == 0 then
+        if (IsOversea and cfg.Oversea == 1) or (not IsOversea and cfg.Oversea == 2) or cfg.Oversea == 0 then
             bVisable = bVisable
         else
             bVisable = false;

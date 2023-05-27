@@ -99,6 +99,14 @@ end
 function uw_fight_level_skillintro:OnDestruct()
     print("uw_fight_level_skillintro OnDestruct")
     EventSystem.Remove(self.TabKeyHandle)
+
+    if self.EventOnInputTypeChange then
+        EventSystem.Remove(self.EventOnInputTypeChange)
+    end 
+
+    if self.EventOnKeyBoardSettingChanged then
+        EventSystem.Remove(self.EventOnKeyBoardSettingChanged)
+    end 
 end
 
 function uw_fight_level_skillintro:PreTaskOnStart()
@@ -115,6 +123,7 @@ function uw_fight_level_skillintro:SetData(Index, Max, RoleId,KeyName)
     self.CurrentIndex = Index
     self.MaxIndex = Max
     self.RoleId = RoleId
+    self.KeyNameForSkillIntro = KeyName
     local Id = self.RoleId * 1000 + self.CurrentIndex * 100
     local SkillIntroConf = GachaTry.GetSkillIntroConf(Id)
     if SkillIntroConf then
@@ -148,6 +157,20 @@ function uw_fight_level_skillintro:SetData(Index, Max, RoleId,KeyName)
             if cfg1 and cfg1.sName then
                 Desc = string.format(Desc,Text(cfg1.sName))
             end
+        end
+
+        if not self.EventOnInputTypeChange then
+            self.EventOnInputTypeChange = EventSystem.On(Event.OnInputTypeChange, function()
+                self:SetData(self.CurrentIndex,self.MaxIndex,self.RoleId,self.KeyNameForSkillIntro)
+            end)
+        end
+
+        if not self.EventOnKeyBoardSettingChanged then        
+            self.EventOnKeyBoardSettingChanged = EventSystem.On(Event.OnKeyBoardSettingChanged,function (sBindKey,pKeyName,pKeyCfg)
+                if sBindKey == self.KeyNameForSkillIntro then
+                    self:SetData(self.CurrentIndex,self.MaxIndex,self.RoleId,self.KeyNameForSkillIntro)
+                end
+            end)
         end
     end
     self:ShowIntro(Title, Desc)

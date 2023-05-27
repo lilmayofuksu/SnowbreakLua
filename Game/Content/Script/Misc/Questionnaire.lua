@@ -77,10 +77,11 @@ function Questionnaire.OpenQuestionnaire()
     if Questionnaire.CurID > 0 then
         local tbCurConfig = Questionnaire.tbConfig[Questionnaire.CurID]
         local slink = tbCurConfig.sLink
+        slink = string.gsub(slink, '^http://', 'https://')
         if tbCurConfig.sKey and tbCurConfig.sKey ~= '' then
             --- 拼接带API的地址
             local secret = tbCurConfig.sKey
-            -- local callback = 'http://' .. Login.GetServer().sAddr .. ':1234/dcpcollect' --临时拼游戏服务器回调地址
+            -- local callback = 'https://' .. Login.GetServer().sAddr .. ':1234/dcpcollect' --临时拼游戏服务器回调地址
             local info = {
                 callback = tbCurConfig.sCallback, --配置表回调地址
                 survey = tbCurConfig.sIndex,

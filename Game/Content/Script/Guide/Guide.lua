@@ -530,10 +530,6 @@ function GuideLogic.AddNotifyEvent(isAdd)
                 if stepId and stepId > 0 then
                     GuideLogic.CompleteStep(id, stepId)
                 else
-                    if id == 1 then
-                        --序章入场动画是否结束
-                        GuideLogic.bPrologueAnimationEnd = true
-                    end
                     GuideLogic.BeginLevelNotifyGuide(id)
                 end
             end

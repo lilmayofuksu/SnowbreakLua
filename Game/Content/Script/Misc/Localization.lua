@@ -162,7 +162,7 @@ function Localization.ChangeVoiceLanguage(sLanguage)
     if sLanguage == 'en_US' then
         nIndex = 3
         local sOSLanguage = UE4.ULocalizationSubSystem.GetOSLanguage() or ""
-        if sOSLanguage ~= 'en' and sOSLanguage ~= 'en_US' then
+        if not string.find(sOSLanguage, 'en') then
             nIndex = 2
         end
     elseif sLanguage == 'zh_CN' then

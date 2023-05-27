@@ -39,9 +39,9 @@ end
 ---@return tbParam 处理后的参数 tbParam[1] 是新的key
 function Mail.CheckContentParam(sContent)
     --参数化的邮件
-    local p1 = string.find(sContent,"PM|")
+    local p1 = string.find(sContent,"PM:")
     if p1==1 then
-        local tbContent = Split(string.sub(sContent,4),"|")
+        local tbContent = Split(string.sub(sContent,4),":")
         local sNewContent = Text(tbContent[1])
         table.remove(tbContent,1)
         for i=1,#tbContent do

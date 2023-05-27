@@ -520,19 +520,24 @@ function tbClass:ShowOrHideWidgets()
                 self.onlineMoney:ShowMoney(pawn.PlayerState:GetMultiLevelMoney(false))
                 self.onlinePoints:ShowPoint(pawn.PlayerState:GetMultiLevelPoint())
             end
-            self:RegisterEvent(
-                Event.OnMultiLevelMoneyChange,
+
+            if self.MultiMoneyEvent then
+                EventSystem.Remove(self.MultiMoneyEvent)
+                self.MultiMoneyEvent = nil
+            end
+            self.MultiMoneyEvent = EventSystem.On(Event.OnMultiLevelMoneyChange,
                 function(num)
                     self.onlineMoney:ShowMoney(num)
-                end
-            )
+                end)
 
-            self:RegisterEvent(
-                Event.OnMultiLevelPointChange,
+            if self.MultiPointEvent then
+                EventSystem.Remove(self.MultiPointEvent)
+                self.MultiPointEvent = nil
+            end
+            self.MultiPointEvent = EventSystem.On(Event.OnMultiLevelPointChange,
                 function(num)
                     self.onlinePoints:ShowPoint(num)
-                end
-            )
+                end)
         end
     else 
         WidgetUtils.Collapsed(self.ReviveProgress)
@@ -773,6 +778,15 @@ function tbClass:OnDestruct()
         UE4.UKismetSystemLibrary.K2_ClearTimerHandle(self, self.TimerHandle)
     end
     self:ClearReviveTip()
+    if self.MultiMoneyEvent then
+        EventSystem.Remove(self.MultiMoneyEvent)
+        self.MultiMoneyEvent = nil
+    end
+
+    if self.MultiPointEvent then
+        EventSystem.Remove(self.MultiPointEvent)
+        self.MultiPointEvent = nil
+    end
 end
 
 --打靶UI加载

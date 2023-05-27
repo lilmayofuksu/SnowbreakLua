@@ -11,6 +11,14 @@ function tbClass:OnEnter()
     if GuideLogic.nNowStep and GuideLogic.nNowStep <= 5 then
         self:ToNextStep()
     end
+
+    -- 预加载取名界面
+    if GuideLogic.nNowStep and GuideLogic.nNowStep <= 2 then 
+        local uMGStreamingSubsystem = UE4.UUMGStreamingSubsystem.GetAssetStreamingSubsystem()
+        if uMGStreamingSubsystem then 
+            uMGStreamingSubsystem:RequestStreamingByTag("ui_bename", "/Game/UI/UMG/Bename/umg_bename.umg_bename_C")
+        end
+    end
 end
 
 function tbClass:ToNextStep()

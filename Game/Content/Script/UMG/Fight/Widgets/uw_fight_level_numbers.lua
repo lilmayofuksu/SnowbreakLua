@@ -21,7 +21,9 @@ function tbClass:ShowMoney(num,showBtn)
 	local nowMoney = self.TxtOnlineNum:GetText()
 	if tonumber(nowMoney) and tonumber(nowMoney) < num then
         self.TxtOnlineNum_1:SetText(num - tonumber(nowMoney))
-		self:PlayAnimation(self.GetMoney)
+		if self.IsVisible and self:IsVisible() then
+			self:PlayAnimation(self.GetMoney)
+		end
 	end
 	self.TxtOnlineNum:SetText(num)
 	if showBtn then
@@ -42,7 +44,9 @@ function tbClass:ShowPoint(num)
 	local nowPoint = self.TxtOnlineNum:GetText()
 	if tonumber(nowPoint) and tonumber(nowPoint) < num then
         self.TxtOnlineNum_1:SetText(num - tonumber(nowPoint))
-		self:PlayAnimation(self.GetMoney)
+        if self.IsVisible and self:IsVisible() then
+			self:PlayAnimation(self.GetMoney)
+		end
 	end
 	self.TxtOnlineNum:SetText(num)
 	WidgetUtils.Collapsed(self.BtnCheck)

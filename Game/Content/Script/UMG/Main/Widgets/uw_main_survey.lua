@@ -24,6 +24,7 @@ end
 function tbClass:OnOpen(url)
     Web.LoadUrl(url, self.BG, self.Web)
     --WidgetUtils.Visible(self)
+    self.initurl = url
     if IsIOS() then -- IOS重定向不跳转问题
         UE4.Timer.Cancel( self.timerId or 0)
         self.timerId = UE4.Timer.Add(0.5, function() 
@@ -44,8 +45,13 @@ end
 
 --刷新
 function tbClass:Refresh()
-    if not self.History or #self.History == 0 then return end
-    Web.LoadUrl(self.History[#self.History], self.BG, self.Web)
+    if not self.History or #self.History == 0 then
+        print( "Questionnaire Refresh", self.initurl)
+        Web.LoadUrl(self.initurl, self.BG, self.Web)
+    else
+        print( "Questionnaire Refresh", #self.History)
+        Web.LoadUrl(self.History[#self.History], self.BG, self.Web)
+    end
 end
 
 

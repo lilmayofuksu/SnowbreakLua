@@ -30,10 +30,7 @@ function tbClass:Construct()
 
    self.tbWidgets = {}
 
-   self.LanguageSet:Set({sName = "ui.TxtOperationSet.Multilingual", pFunc = function ()
-      local tb = PlayerSetting.GetTypesByCategory(SID, ContentType.Lang)
-      self:ResetPart(tb, "ui.TxtOperationSet.Multilingual")
-  end})
+   self.LanguageSet:Set({sName = "ui.TxtOperationSet.Multilingual"})
 
    local tbIndex = Login.IsOversea() and {1, 2, 3} or {1, 2}
    self.tbFunc = {

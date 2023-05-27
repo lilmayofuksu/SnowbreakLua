@@ -47,6 +47,7 @@ function tbClass:SetState(state)
         Login.DownloadServer(function(bSucc, errKey) 
             if bSucc then
                 self:SetState(tbLoginState.ConnectServer)
+                WidgetUtils.Collapsed(self.LoginBtn)
             else
                 if errKey then
                     UI.ShowMessage(errKey)
@@ -56,7 +57,6 @@ function tbClass:SetState(state)
                 self:SetState(tbLoginState.RecvLoginParam)
             end
         end)
-        WidgetUtils.Collapsed(self.LoginBtn)
     elseif state == tbLoginState.ConnectServer then
         self:ConnectToServer()
     elseif state == tbLoginState.RequestLogin then
@@ -120,8 +120,9 @@ function tbClass:OnInit()
         if not Login.CheckNetwork() then return end
         UE4.UGameLibrary.RequestLoginParameter(json.encode({loginType="0", appName=Text('ui.TxtGameName')}))
     end)
-    if string.find(UE4.UGameLibrary.GetChannelId(), "bili") then
-        WidgetUtils.Hidden(self.BtnScan)
+    local channle = UE4.UGameLibrary.GetChannelId()
+    if Login.IsOversea() or string.find(channle, "bili") then
+        WidgetUtils.Collapsed(self.BtnScan)
     end
 
     WidgetUtils.Visible(self.BtnLogOut)
@@ -160,7 +161,7 @@ function tbClass:OnOpen()
     self:OverseaMask()
     Localization.CheckLanguageTip()
     if WITH_XGSDK then
-        self.DelayId = UE4.Timer.Add(2, function()
+        self.DelayId = UE4.Timer.Add(5, function()
             if self.CurrState < tbLoginState.RequstLoginParam then
                 self:SetState(tbLoginState.RequstLoginParam)
             end
@@ -255,15 +256,15 @@ function tbClass:BindEvent(bBind)
             UI.CloseConnection()
 
             if Error.Handled(sErr, pArgs) then
-                self:SetState(tbLoginState.InitSdk)
+                self:SetState(tbLoginState.RecvLoginParam)
                 return
             end
 
 
             UI.OpenMessageBox(false, Text('error.' .. sErr), function()
-                self:SetState(tbLoginState.InitSdk)
+                self:SetState(tbLoginState.RecvLoginParam)
             end, function()
-                self:SetState(tbLoginState.InitSdk)
+                self:SetState(tbLoginState.RecvLoginParam)
             end);
         end)
 

@@ -11,6 +11,7 @@ ClimbTowerLogic.TimeSubID       = 1     --存当前的周期ID
 ClimbTowerLogic.LevelSubID      = 2     --存1-8层未挑战完成的关卡信息（0-23关卡id 24-31区域）
 ClimbTowerLogic.LevelSubID2     = 3     --存9-12层未挑战完成的关卡信息（0-23关卡id 24-31区域）
 ClimbTowerLogic.DiffSubID       = 4     --存9-12层挑战难度
+ClimbTowerLogic.HisDiffSubID    = 5     --存9-12层历史通过的最高挑战难度
 
 --[[
     1-8层未挑战完成的角色信息

@@ -10,6 +10,11 @@ function tbClass:Construct()
     for i = 1, 3 do
         if self["BtnZone"..i] then
             BtnAddEvent(self["BtnZone"..i], function ()
+                local HisDiff = me:GetAttribute(ClimbTowerLogic.GID, ClimbTowerLogic.HisDiffSubID)
+                if i > HisDiff+1 then
+                    UI.ShowMessage(Text("climbtower.tips3"))
+                    return
+                end
                 self.SelectedDiff = i
                 self:UpdatePanel()
             end)
@@ -43,11 +48,17 @@ function tbClass:Construct()
 end
 
 function tbClass:UpdatePanel()
+    local HisDiff = me:GetAttribute(ClimbTowerLogic.GID, ClimbTowerLogic.HisDiffSubID)
     for i = 1, 3 do
         if self.SelectedDiff == i then
             WidgetUtils.HitTestInvisible(self["Selected"..i])
         else
             WidgetUtils.Collapsed(self["Selected"..i])
+        end
+        if i > HisDiff+1 then
+            WidgetUtils.HitTestInvisible(self["PanelLock"..i])
+        else
+            WidgetUtils.Collapsed(self["PanelLock"..i])
         end
     end
 end

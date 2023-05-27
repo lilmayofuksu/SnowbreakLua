@@ -1170,4 +1170,10 @@ function tbClass:UseItemCallBack(pItem, nUseCount)
     end
 end
 
+EventSystem.On(Event.LanguageChange, function(bReconnected, bNeedRename)
+    if bReconnected then return end
+    --切换语言 缓存的信息重新取一遍
+    self.tbSortInfo[self.PAGE_SUPPORT].tbFilter[2].tbRule = Logistics.GetSuitSkillList()
+end)
+
 return tbClass

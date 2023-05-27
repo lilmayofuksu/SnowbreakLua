@@ -1169,32 +1169,32 @@ end
 --获取套装技能列表
 --策划要求按品质、P 降序排列
 function Logistics.GetSuitSkillList()
-    if not Logistics.tbSuitSKillList or not next(Logistics.tbSuitSKillList) then
-        local tbMap = {}
-        local tbList = {}
-        for _, info in pairs(Logistics.tbLogiData) do
-            if not tbMap[info.SuitSkillID] then
-                tbMap[info.SuitSkillID] = true
-                table.insert(tbList, {info.SuitSkillID, info.Color, info._P})
-            end
-        end
-
-        table.sort(tbList, 
-            function (l, r)
-                if l[2] ~= r[2] then
-                    return l[2] > r[2]
-                end
-
-                return l[3] > r[3]
-            end
-        )
-
-        Logistics.tbSuitSKillList = {}
-        for _, tb in pairs(tbList) do
-            local tbInfo = Logistics.tbSkillSuitID[tb[1]]
-            table.insert(Logistics.tbSuitSKillList, {SkillName(tbInfo.TwoSkillID[1]), tbInfo.TwoSkillID[1]})
+    Logistics.tbSuitSKillList = {}
+    local tbMap = {}
+    local tbList = {}
+    for _, info in pairs(Logistics.tbLogiData) do
+        if not tbMap[info.SuitSkillID] then
+            tbMap[info.SuitSkillID] = true
+            table.insert(tbList, {info.SuitSkillID, info.Color, info._P})
         end
     end
+
+    table.sort(tbList, 
+        function (l, r)
+            if l[2] ~= r[2] then
+                return l[2] > r[2]
+            end
+
+            return l[3] > r[3]
+        end
+    )
+
+    for _, tb in pairs(tbList) do
+        local tbInfo = Logistics.tbSkillSuitID[tb[1]]
+        table.insert(Logistics.tbSuitSKillList, {SkillName(tbInfo.TwoSkillID[1]), tbInfo.TwoSkillID[1]})
+        print(SkillName(tbInfo.TwoSkillID[1]))
+    end
+    
 
     return Logistics.tbSuitSKillList
 end
@@ -1247,5 +1247,8 @@ function Logistics.GetSuitLogisticsCfg(Particular)
     end
     return tb
 end
+
+
+
 
 return Logistics

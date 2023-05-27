@@ -24,6 +24,8 @@ function tbClass:OnEnter(nMapID)
 
     FunctionRouter.UpdateOpenFunction()
     PreviewScene.AsyncLoadMainMap()
+
+    UE4.UKismetSystemLibrary.ExecuteConsoleCommand(GetGameIns(), "Slate.EnableGlobalInvalidation  0")
 end
 
 function tbClass:OnLeave(nMapID)

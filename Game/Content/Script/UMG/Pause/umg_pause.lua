@@ -90,7 +90,7 @@ function tbClass:OnOpen(bPauseBtnDown, fnClosePauseCallback)
         WidgetUtils.Collapsed(self.BtnBuff)
     end
 
-    if Map.GetCurrentID() ~= GuideLogic.PrologueMapID or GuideLogic.bPrologueAnimationEnd or GuideLogic.IsGuideComplete(1) then
+    if Map.GetCurrentID() ~= GuideLogic.PrologueMapID or GuideLogic.IsGuideComplete(1) then
         --暂停界面锁主角输入
         if self.pPlayer then
             self.pPlayer:StopAllInput(self.IsOnlineClient)
@@ -171,7 +171,7 @@ function tbClass:OnClose()
     end
 
     -- self.IsOnlineClient = UE4.UGameLibrary.IsOnlineClient(self:GetOwningPlayer())
-    if Map.GetCurrentID() ~= GuideLogic.PrologueMapID or GuideLogic.bPrologueAnimationEnd or GuideLogic.IsGuideComplete(1) then
+    if Map.GetCurrentID() ~= GuideLogic.PrologueMapID or GuideLogic.IsGuideComplete(1) then
         if self.pPlayer then
             self.pPlayer:RestoreAllInput()
         end

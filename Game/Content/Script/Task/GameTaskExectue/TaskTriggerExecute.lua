@@ -48,8 +48,20 @@ function TaskTrigger:Check()
 end
 
 function TaskTrigger:OnEnd_Client()
+    -- 以下为联机区域任务提示的临时处理代码 
+    if self.EndIsConsideredComplete then
+        local TaskActor = self:GetGameTaskActor()
+        if TaskActor and Launch.GetType() == LaunchType.ONLINE and not TaskActor.bLose then
+            Msg = self:GetExecuteDescription(true)
+            if Msg and Msg ~= "" then
+                EventSystem.Trigger(Event.FightTip, {bShowCompleteTip = true, Type = 1, bShowUIAnim = true, Msg = Msg})
+            end
+        end
+    end
+    -- //
+
     UI.Call("Fight", "HiddenTaskCountDown", self)
-end
+end 
 
 function TaskTrigger:OnEnd()
     if self.Triggers then

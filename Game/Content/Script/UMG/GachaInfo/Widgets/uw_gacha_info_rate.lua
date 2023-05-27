@@ -146,6 +146,7 @@ function tbClass:OnActive(nId)
                 nRate = rarityCfg.tbRarity[param.nColor] / rarityCfg.nSumWeight
             end
             txt:SetText(Text(tbTxt[param.nColor], string.format('%.2f', nRate * 100) .. '%', GetRateTxt(param.nColor)))
+            --txt:SetText(Text(tbTxt[param.nColor], GetRateTxt(param.nColor)))
         end
     end
 

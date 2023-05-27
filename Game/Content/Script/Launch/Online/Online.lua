@@ -1643,6 +1643,7 @@ function Online.Settlement(pId, nIndex)
     end
 
     local TaskSubActor = UE4.ATaskSubActor.GetTaskSubActor(GameState)
+    tbEndData.tbMonster = RikiLogic:GetMonsterData(TaskSubActor)
     if TaskSubActor and TaskSubActor.GetAchievementData then
         local tbKillMonster = TaskSubActor:GetAchievementData()
         local tbKey = tbKillMonster:Keys()

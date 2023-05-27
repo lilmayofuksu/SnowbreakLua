@@ -170,12 +170,12 @@ function tbClass:Construct()
     local sNew = UE4.UItemLibrary.GetWeaponAbilityValueToStr(UE4.EWeaponAttributeType.Attack, self.pWeapon, nLevel)
 
     ---霰弹枪
-    if self.pWeapon:Detail() == 3 then
-        WidgetUtils.HitTestInvisible(self.IText_Num)
-        local nLaunch = TackleDecimal(tonumber(UE4.UItemLibrary.GetCharacterCardAbilityValueByStr('BulletLaunchCount', self.pWeapon)))
-        sNow = TackleDecimal(tonumber(sNow)) * nLaunch
-        sNew = TackleDecimal(tonumber(sNew)) * nLaunch
-    end 
+    -- if self.pWeapon:Detail() == 3 then
+    --     WidgetUtils.HitTestInvisible(self.IText_Num)
+    --     local nLaunch = TackleDecimal(tonumber(UE4.UItemLibrary.GetCharacterCardAbilityValueByStr('BulletLaunchCount', self.pWeapon)))
+    --     sNow = TackleDecimal(tonumber(sNow)) * nLaunch
+    --     sNew = TackleDecimal(tonumber(sNew)) * nLaunch
+    -- end 
 
     sNew = nLevel > self.pWeapon:EnhanceLevel() and sNew or nil
 

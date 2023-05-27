@@ -15,13 +15,14 @@ function tbClass:OnInit()
         local cdkey = self.ExchangeTxt:GetText()
         if cdkey and cdkey ~= ''  then
             print("ExchangeCode:", cdkey)
-            local bMatch = UE4.UGameLibrary.RegexMatch(cdkey, "^[\\uac00-\\ud7ff\\u30A1-\\u30FF\\u3041-\\u309F\\u4E00-\\u9FA5A-Za-z0-9]+$")
-            if bMatch then
+
+            ---去掉礼包码字母数字输入的限制
+            --local bMatch = UE4.UGameLibrary.RegexMatch(cdkey, "^[\\uac00-\\ud7ff\\u30A1-\\u30FF\\u3041-\\u309F\\u4E00-\\u9FA5A-Za-z0-9]+$")
+            if true then
                 local userinfoUrl = Player.tbSetting and Player.tbSetting['GiftCodeParam1'] or ''
                 local dispatchUrl = Player.tbSetting and Player.tbSetting['GiftCodeParam2'] or ''
                 UE4.UGameLibrary.ExchangeGift(cdkey, userinfoUrl, dispatchUrl)
-                DataPost.XGEvent("usecdk", "Player use SDK", 0,
-                    string.format("{\"cdkey\":\"%s\"}", cdkey))
+                DataPost.XGEvent("usecdk", "Player use SDK", 0, string.format("{\"cdkey\":\"%s\"}", cdkey))
             else
                 UI.ShowTip("tip.rolefiles_inputcode")
             end
